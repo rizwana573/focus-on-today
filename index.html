@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Focus on Today</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <header>
+        <h1>Focus on <span class="">Today</span></h1>
+    </header>
+    <main>
+        <div id="cardOuterContainer">
+            <span id="cardTitle">Today</span> <img class="sun" src="/images/sun.png" />
+            <div id="cardInnerContainer">
+                <div class="progressText">Raise the bar by completing your goals!</div>
+                <progress value="0" max="100">0%</progress>
+                <div class="error">Please set all goals</div>
+
+                <section>
+                    <div class="goalContainer">
+                        <div class="round">
+                            <input class="goalCheckbox" type="checkbox" id="goal1"
+                                aria-label="goal1" />
+                            <label for="goal1"></label>
+                        </div>
+
+                        <input type="text" class="goalInput" placeholder="Add new goal..."
+                            name="goal1" />
+                    </div>
+
+                    <div class="goalContainer">
+                        <div class="round">
+                            <input class="goalCheckbox" type="checkbox" id="goal2"
+                                aria-label="goal2" />
+                            <label for="goal2"></label>
+                        </div>
+
+                        <input type="text" class="goalInput" placeholder="Add new goal..."
+                            name="goal2" />
+                    </div>
+
+                    <div class="goalContainer">
+                        <div class="round">
+                            <input class="goalCheckbox" type="checkbox" id="goal3"
+                                aria-label="goal3" />
+                            <label for="goal3"></label>
+                        </div>
+                        <input type="text" class="goalInput" placeholder="Add new goal..."
+                            name="goal3" />
+                    </div>
+                </section>
+
+                <div class="inspiringText">“Move one step ahead, today!”</div>
+            </div>
+        </div>
+    </main>
+    <footer>Made with ❤️ by Riz</footer>
+</body>
+
+</html>
