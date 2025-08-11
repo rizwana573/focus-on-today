@@ -1,3 +1,10 @@
+*{
+  box-sizing: border-box;
+}
+img{
+  max-width: 100%;
+  height: auto;
+}
 body {
   font-family: "Poppins", sans-serif;
   font-weight: 400;
@@ -30,6 +37,8 @@ header h1 span {
 
 .error {
   color: red;
+  position: absolute;
+  font-size: 11px;
 }
 
 #cardTitle {
@@ -61,6 +70,8 @@ progress {
   border-radius: 5px;
   margin: 20px auto;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
 }
 
 progress::-webkit-progress-bar {
@@ -82,6 +93,10 @@ input.goalInput {
   border: none;
   width: 90%;
   font-family: inherit;
+  margin-left: 10px;
+}
+input.goalInput::placeholder{
+  color: #bcbcbc;
 }
 
 input.goalInput:focus {
@@ -155,7 +170,25 @@ input.goalInput:focus {
 footer {
   padding: 30px 0 5px;
 }
-
+.customCheckbox {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #c6c6c6;
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    padding:3px;
+}
+.customCheckbox img{
+  opacity:0;
+}
+.completed .customCheckbox img{
+  opacity:1;
+}
+.completed .customCheckbox{
+  background:#48a300;
+}
 @media only screen and (max-width:767px) {
   #cardOuterContainer {
     max-width: 75%;
