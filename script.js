@@ -1,11 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
     const inputs = document.querySelectorAll(".goalInput");
     const progress = document.querySelector("progress");
-    let checkedGoals = 0;
+   
     const checkboxes = document.querySelectorAll(".customCheckbox");
     const progressText = ["Raise the bar by completing your goals!", "Its a good beginning", "One more step ahead, keep going", "Whoa!, you have completed all the goals"];
 
     const allGoals = JSON.parse(localStorage.getItem('allGoals')) || {};
+
+     let checkedGoals = Object.values(allGoals)
+                            .filter(goal => goal.completed===true).length ;
+
+     progress.setAttribute("value", (checkedGoals / checkboxes.length) * 100);
+    document.querySelector(".progressVal").innerText = `${checkedGoals}/3 completed`;
+    document.querySelector(".progressText").innerText = progressText[checkedGoals];    
+        if(checkedGoals>0){
+            document.querySelector(".error").style.display = "none";
+        }               
 
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener("click", () => {
@@ -60,16 +70,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         input.addEventListener("input", () => {
             if (allGoals[input.id] && allGoals[input.id].completed) {
-                console.log("when goals are completed");
+                //console.log("when goals are completed");
                 input.value = allGoals[input.id].name;
                 return;
             }
             if (allGoals[input.id]) {
-                console.log("when inputs are present");
+                //console.log("when inputs are present");
                 allGoals[input.id].name = input.value;
             }
             else {
-                console.log("when inputs are not present");
+               // console.log("when inputs are not present");
                 allGoals[input.id] = {
                     name: input.value,
                     completed: false,
