@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const progress = document.querySelector("progress");
     let checkedGoals = 0;
     const checkboxes = document.querySelectorAll(".customCheckbox");
+    const progressText = ["Raise the bar by completing your goals!", "Its a good beginning", "One more step ahead, keep going", "Whoa!, you have completed all the goals"];
+
+    const allGoals = JSON.parse(localStorage.getItem('allGoals')) || {};
 
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener("click", () => {
@@ -10,78 +13,72 @@ document.addEventListener("DOMContentLoaded", () => {
                 return input.value;
             });
 
+
             if (allGoalsSet) {
                 checkbox.parentElement.classList.toggle("completed");
                 document.querySelector(".error").style.display = "none";
-                if (checkbox.parentElement.classList.contains("completed") && checkedGoals<=checkboxes.length){
+                const inputId = checkbox.nextElementSibling.id
+                allGoals[inputId].completed = !allGoals[inputId].completed
+
+                if (checkbox.parentElement.classList.contains("completed") && checkedGoals <= checkboxes.length) {
                     checkedGoals++;
-                    console.log(checkedGoals);
-                progress.setAttribute("value", (checkedGoals/checkboxes.length)*100);
-             }else{
-                checkedGoals--;
-                console.log(checkedGoals);
-                progress.setAttribute("value", (checkedGoals/checkboxes.length)*100);
-             }
+                    //console.log(checkedGoals);
+                    progress.setAttribute("value", (checkedGoals / checkboxes.length) * 100);
+                    document.querySelector(".progressVal").innerText = `${checkedGoals}/3 completed`;
+                    document.querySelector(".progressText").innerText = progressText[checkedGoals];
+                } else {
+                    checkedGoals--;
+                    //console.log(checkedGoals);
+                    progress.setAttribute("value", (checkedGoals / checkboxes.length) * 100);
+                    document.querySelector(".progressVal").innerText = `${checkedGoals}/3 completed`;
+                    document.querySelector(".progressText").innerText = progressText[checkedGoals];
+                }
+                localStorage.setItem('allGoals', JSON.stringify(allGoals))
+
             } else {
                 document.querySelector(".error").style.display = "block";
+            }
+            if (checkbox.parentElement.classList.contains("completed")) {
+                console.log(checkbox.parentElement.querySelector("input"))
+                checkbox.parentElement.querySelector("input").disabled = true;
+            } else {
+                checkbox.parentElement.querySelector("input").disabled = false;
             }
         });
     });
     inputs.forEach((input) => {
+        if (allGoals[input.id]) {
+            input.value = allGoals[input.id].name;
+            if (allGoals[input.id].completed) {
+                input.parentElement.classList.add('completed');
+            }
+        }
+
         input.addEventListener("focus", () => {
             document.querySelector(".error").style.display = "none";
         });
+
+        input.addEventListener("input", () => {
+            if (allGoals[input.id] && allGoals[input.id].completed) {
+                console.log("when goals are completed");
+                input.value = allGoals[input.id].name;
+                return;
+            }
+            if (allGoals[input.id]) {
+                console.log("when inputs are present");
+                allGoals[input.id].name = input.value;
+            }
+            else {
+                console.log("when inputs are not present");
+                allGoals[input.id] = {
+                    name: input.value,
+                    completed: false,
+                }
+            }
+            localStorage.setItem('allGoals', JSON.stringify(allGoals));
+        });
     });
 
-    /*inputs.forEach((input) => {
-          input.addEventListener("change", () => {
-              const container = input.closest(".goalContainer");
-              //const checkbox = container.querySelector(".round");
-              const setGoalsCount = Array.from(inputs).filter(
-                  (input) => input.value.trim() !== ""
-              ).length;
-  
-              if (input.value.trim() !== "") {
-                  container.classList.add("active");
-                  document.querySelector(".error").style.display = "none";
-                  document.querySelector(
-                      ".progressText"
-                  ).innerText = `Keep going, you have set ${setGoalsCount} goals.`;
-                  document.querySelector(
-                      ".inspiringText"
-                  ).innerText = `Keep going, you are making great progress.`;
-              } else {
-                  container.classList.remove("active");
-                  if (setGoalsCount == 0) {
-                      document.querySelector(".progressText").innerText = `Raise the bar by completing your goals.`;
-                      document.querySelector(".error").style.display = "block";
-                  }
-              }
-          });
-  
-          let checkboxes = document.querySelectorAll(".goalCheckbox");
-          let progress = document.querySelector("progress");
-          checkboxes.forEach((checkbox) => {
-              const container = checkbox.closest(".goalContainer");
-              checkbox.addEventListener("change", () => {
-                  const checkedCount = Array.from(checkboxes).filter(
-                      (cb) => cb.checked
-                  ).length;
-  
-                  const step = 100 / checkboxes.length;
-                  const progressValue = Math.round(checkedCount * step);
-                  progress.setAttribute("value", progressValue);
-                  if (checkbox.checked && !container.classList.contains("completed")) {
-                      container.classList.add("completed");
-                  } else {
-                      container.classList.remove("completed");
-                  }
-                  if (checkedCount === checkboxes.length) {
-                      document.querySelector(".progressText, .inspiringText").innerText = "Hurray! you have completed all your goals today."
-                  }
-              });
-          });
-      });*/
 
     let headerHeight = document.querySelector("header").offsetHeight;
     let footerHeight = document.querySelector("footer").offsetHeight;

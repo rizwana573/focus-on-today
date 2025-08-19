@@ -27,7 +27,10 @@
                 <div class="progressText">
                     Raise the bar by completing your goals!
                 </div>
+                <div class="progressWrap">
                 <progress value="0" max="100">0%</progress>
+                <span class="progressVal">0/3 completed</span>
+                </div>
                 <div class="error">Please set all goals</div>
 
                 <section>
@@ -41,7 +44,7 @@
                             <img src="./images/check-icon.svg" alt="check icon" />
                         </div>
 
-                        <input type="text" class="goalInput" placeholder="Add new goal..."
+                        <input type="text" id="first" class="goalInput" placeholder="Add new goal..."
                             name="goal1" />
                     </div>
 
@@ -54,7 +57,7 @@
                         <div class="customCheckbox">
                             <img src="./images/check-icon.svg" alt="check icon" />
                         </div>
-                        <input type="text" class="goalInput" placeholder="Add new goal..."
+                        <input type="text" id="second" class="goalInput" placeholder="Add new goal..."
                             name="goal2" />
                     </div>
 
@@ -67,7 +70,7 @@
                         <div class="customCheckbox">
                             <img src="./images/check-icon.svg" alt="check icon" />
                         </div>
-                        <input type="text" class="goalInput" placeholder="Add new goal..."
+                        <input type="text" id="third" class="goalInput" placeholder="Add new goal..."
                             name="goal3" />
                     </div>
                 </section>
